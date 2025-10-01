@@ -65,6 +65,12 @@ const Compression = ({
 		setCanSave( true );
 		const data = { ...settings };
 		data[ option ] = value ? 'enabled' : 'disabled';
+
+		// When disabling autoquality, ensure quality is set to a numeric value
+		if ( 'autoquality' === option && ! value && 'number' !== typeof data.quality ) {
+			data.quality = getQuality( data.quality );
+		}
+
 		setSettings( data );
 	};
 
